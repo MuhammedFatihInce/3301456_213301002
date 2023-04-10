@@ -1,7 +1,6 @@
 import 'package:deneme_flutter/components/bottomNavigation.dart';
 import 'package:deneme_flutter/components/buildContext.dart';
 import 'package:deneme_flutter/components/header.dart';
-import 'package:deneme_flutter/pages/productDetail.dart';
 import 'package:flutter/material.dart';
 
 class CategoryPage extends StatelessWidget {
@@ -86,18 +85,19 @@ class CategoryPage extends StatelessWidget {
                   mainAxisSpacing: 15,
                   crossAxisSpacing: 10,
                   children: products.map((Map product) {
-                    return buildContent(
-                        product["isim"], product["fotograf"], product["fiyat"], context);
+                    return buildContent(product["isim"], product["fotograf"],
+                        product["fiyat"], context);
                   }).toList(),
                 ),
-              )
+              ),
+              SizedBox(height: 50,),
             ],
+
           )),
 
-              //BOTTOM NAVİGATİON
-             bottomNavigationBar("search"),
+
+      //BOTTOM NAVİGATİON
+      bottomNavigationBar("search"),
     ])));
   }
 }
-
-

@@ -1,14 +1,14 @@
 import 'package:deneme_flutter/components/bottomNavigation.dart';
 import 'package:deneme_flutter/components/capacityOption.dart';
 import 'package:deneme_flutter/components/colorOption.dart';
-import 'package:deneme_flutter/components/label.dart';
 import 'package:deneme_flutter/components/header.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailPage extends StatefulWidget {
   String productTitle;
+  String photoUrl;
 
-  ProductDetailPage(this.productTitle);
+  ProductDetailPage(this.productTitle, this.photoUrl);
 
   @override
   _ProductDetailPage createState() => _ProductDetailPage();
@@ -58,7 +58,7 @@ class _ProductDetailPage extends State<ProductDetailPage> {
                     //ÜRÜN FOTOĞRAFI
                     Center(
                       child: Image.asset(
-                        "assets/images/mobilePhone.png",
+                       widget.photoUrl,
                         width: 150,
                         height: 200,
                       ),
@@ -121,6 +121,25 @@ class _ProductDetailPage extends State<ProductDetailPage> {
                         print("Ürün İsmi: " + widget.productTitle);
                         print("Ürün rengi: " + selectedColor.value.toString());
                         print("Ürün kapasitesi: " + selectedCapacity.toString() + " gb");
+
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: Colors.deepOrangeAccent,
+                        ),
+                        child: Text("İstek Listesine Ekle", textAlign: TextAlign.center, style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.w600),),
+                      ),
+                    ),
+                    SizedBox(height: 25,),
+                    GestureDetector(
+                      onTap: (){
+                        print("Ürün sepete eklendi.");
+                        print("Ürün İsmi: " + widget.productTitle);
+                        print("Ürün rengi: " + selectedColor.value.toString());
+                        print("Ürün kapasitesi: " + selectedCapacity.toString() + " gb");
                       },
                       child: Container(
                         width: double.infinity,
@@ -133,6 +152,7 @@ class _ProductDetailPage extends State<ProductDetailPage> {
                       ),
                     ),
                     SizedBox(height: 100,),
+
                   ],
                 ),
               ),

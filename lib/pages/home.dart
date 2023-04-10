@@ -8,13 +8,15 @@ import 'package:flutter/material.dart';
 import 'categories.dart';
 import '../components/bottomNavigation.dart';
 
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Widget> campaigns = [buildBanner(), buildBanner(), buildBanner()];
+  int newIndex = 0;
+
   List<Product> product = [
     Product.withId(
         id: 1,
@@ -77,7 +79,52 @@ class _HomePageState extends State<HomePage> {
                     buildHeader(),
 
                     //Banner
-                    buildBanner(),
+                    Stack(
+                      children: [
+                        SizedBox(
+                          height: 210,
+                          child: PageView.builder(
+                            controller: PageController(initialPage: 0),
+                            itemCount: 3,
+                            itemBuilder: (context, index) {
+                              return campaigns[index];
+                            },
+                            onPageChanged: (index) {
+                              setState(() {
+                                newIndex = index;
+                              });
+                            },
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              bottom: 12.0,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                for (int i = 0; i < campaigns.length; i++)
+                                  Container(
+                                    width: 8,
+                                    height: 8,
+                                    margin: EdgeInsets.all(3.0),
+                                    decoration: BoxDecoration(
+                                      color: newIndex == i
+                                          ? Colors.blue
+                                          : Colors.grey,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  )
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    //buildBanner(),
 
                     //Butonlar
                     Padding(
@@ -87,23 +134,18 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           //ilk eleman
                           buildNavigation(
-                              text: "Categories",
+                              text: "Kategoriler",
                               icon: Icons.menu,
                               widget: CategoriesPage(),
                               context: context),
                           buildNavigation(
-                              text: "Favorites",
-                              icon: Icons.star_border,
+                              text: "En çok satılanlar",
+                              icon: Icons.star,
                               widget: Container(),
                               context: context),
                           buildNavigation(
-                              text: "Gifts",
-                              icon: Icons.card_giftcard,
-                              widget: Container(),
-                              context: context),
-                          buildNavigation(
-                              text: "Best selling",
-                              icon: Icons.people,
+                              text: "İstek Listesi",
+                              icon: Icons.bookmark,
                               widget: Container(),
                               context: context),
                         ],
@@ -113,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(height: 40),
                     // SALES TİTLE
                     Text(
-                      "Sales",
+                      "İndirimde olanlar",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 24,
@@ -124,73 +166,47 @@ class _HomePageState extends State<HomePage> {
                     ),
 
                     //SALES ITEMS
-                SingleChildScrollView(
-                  scrollDirection:Axis.horizontal,
-                  child:Row(
-                    mainAxisAlignment:MainAxisAlignment.center,
-                    children:[
-                      buildSalesItem(
-                        text:"${product[0].name}",
-                        photoUrl:"${product[0].photoUrl}",
-                        discount:"${product[0].discount}",
-                        screenWidth:screenWidth,
-                      ),
-                      buildSalesItem(
-                        text:"${product[1].name}",
-                        photoUrl:"${product[1].photoUrl}",
-                        discount:"${product[1].discount}",
-                        screenWidth:screenWidth,
-                      ),
-                      buildSalesItem(
-                        text:"${product[2].name}",
-                        photoUrl:"${product[2].photoUrl}",
-                        discount:"${product[2].discount}",
-                        screenWidth:screenWidth,
-                      ),
-                      buildSalesItem(
-                        text:"${product[3].name}",
-                        photoUrl:"${product[3].photoUrl}",
-                        discount:"${product[3].discount}",
-                        screenWidth:screenWidth,
-                      ),
-                    ],
-                  ),
-                ),
-                SingleChildScrollView(
-                  scrollDirection:Axis.horizontal,
-                  child:Row(
-                    mainAxisAlignment:MainAxisAlignment.center,
-                    children:[
-                      buildSalesItem(
-                        text:"${product[0].name}",
-                        photoUrl:"${product[0].photoUrl}",
-                        discount:"${product[0].discount}",
-                        screenWidth:screenWidth,
-                      ),
-                      buildSalesItem(
-                        text:"${product[1].name}",
-                        photoUrl:"${product[1].photoUrl}",
-                        discount:"${product[1].discount}",
-                        screenWidth:screenWidth,
-                      ),
-                      buildSalesItem(
-                        text:"${product[2].name}",
-                        photoUrl:"${product[2].photoUrl}",
-                        discount:"${product[2].discount}",
-                        screenWidth:screenWidth,
-                      ),
-                      buildSalesItem(
-                        text:"${product[3].name}",
-                        photoUrl:"${product[3].photoUrl}",
-                        discount:"${product[3].discount}",
-                        screenWidth:screenWidth,
-                      ),
-                    ],
-                  ),
-                ),
+                    SizedBox(
+                      height: 270,
+                      child: ListView.separated(
+                          separatorBuilder: (context, index) => const SizedBox(
+                            width: 20,
+                          ),
+                          itemCount: product.length,
+                          padding: EdgeInsets.only(left: 10, top: 20, right: 20, bottom: 10),
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return buildSalesItem(
+                              text: "${product[index].name}",
+                              photoUrl: "${product[index].photoUrl}",
+                              discount: "${product[index].discount}",
+                              context: context,
+                              screenWidth: screenWidth,
+                            );
+                          }),
+                    ),
 
+                    SizedBox(
+                      height: 270,
+                      child: ListView.separated(
+                          separatorBuilder: (context, index) => const SizedBox(
+                                width: 20,
+                              ),
+                          itemCount: product.length,
+                          padding: EdgeInsets.only(left: 10, top: 20, right: 20, bottom: 10),
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return buildSalesItem(
+                              text: "${product[index].name}",
+                              photoUrl: "${product[index].photoUrl}",
+                              discount: "${product[index].discount}",
+                              context: context,
+                              screenWidth: screenWidth,
+                            );
+                          }),
+                    ),
 
-                  SizedBox(
+                    SizedBox(
                       height: 55,
                     ),
                   ],
@@ -205,19 +221,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
-
-List<Widget> buildfor(List<Product> product, double screenWidth) {
-  List<Widget> salesItem = [];
-  for (int i = 0; i < product.length; i++) {
-    salesItem = [
-      buildSalesItem(
-        text: "${product[i].name}",
-        photoUrl: "${product[i].photoUrl}",
-        discount: "${product[i].discount}",
-        screenWidth: screenWidth,
-      )
-    ];
-  }
-  return salesItem.toList();
 }

@@ -5,7 +5,7 @@ Widget buildContent(String title, String photoUrl, String price, BuildContext co
   return GestureDetector(
     onTap: () {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return ProductDetailPage(title);
+        return ProductDetailPage(title, photoUrl);
       }));
     },
     child: Container(
