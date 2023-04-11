@@ -1,21 +1,22 @@
 import 'package:deneme_flutter/components/buildCategory.dart';
-import 'package:deneme_flutter/pages/category.dart';
 import 'package:deneme_flutter/components/bottomNavigation.dart';
 import 'package:deneme_flutter/components/header.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatelessWidget {
   final List<String> categories = [
-    "All",
-    "Computers",
-    "Accessories",
-    "Smartphones",
-    "Smart objects",
-    "Speakers",
-    "Speakers",
-    "Speakers",
-    "Speakers",
-    "Speakers",
+    "Bilgisayar",
+    "Telefon",
+    "Ev Eşyaları",
+    "Oyuncaklar",
+    "Bilgisayar",
+    "Telefon",
+    "Ev Eşyaları",
+    "Oyuncaklar",
+    "Bilgisayar",
+    "Telefon",
+    "Ev Eşyaları",
+    "Oyuncaklar",
   ];
 
   @override
@@ -29,7 +30,7 @@ class CategoriesPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //HEADER
-            header("Categories", context),
+            header("Kategoriler", context),
             SizedBox(
               height: 16,
             ),

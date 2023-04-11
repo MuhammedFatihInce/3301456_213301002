@@ -3,6 +3,7 @@ import 'package:deneme_flutter/components/buildHeader.dart';
 import 'package:deneme_flutter/components/buildNavigation.dart';
 import 'package:deneme_flutter/components/buildSalesItem.dart';
 import 'package:deneme_flutter/models/Product.dart';
+
 import 'package:flutter/material.dart';
 
 import 'categories.dart';
@@ -16,47 +17,51 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Widget> campaigns = [buildBanner(), buildBanner(), buildBanner()];
   int newIndex = 0;
-
   List<Product> product = [
     Product.withId(
         id: 1,
-        name: 'Grocery \n& Staples',
-        photoUrl: "assets/images/Grocery&Staples.png",
+        name: 'Samsung',
+        photoUrl: "assets/images/mobilePhone.png",
         discount: "-50%"),
     Product.withId(
         id: 2,
         name: 'Iphone',
-        photoUrl: "assets/images/Grocery&Staples.png",
+        photoUrl: "assets/images/mobilePhone.png",
         discount: "-50%"),
     Product.withId(
         id: 3,
-        name: 'Laptop ',
-        photoUrl: "assets/images/Grocery&Staples.png",
+        name: 'Xiaomi ',
+        photoUrl: "assets/images/mobilePhone.png",
         discount: "-50%"),
     Product.withId(
         id: 4,
-        name: 'Pc ',
-        photoUrl: "assets/images/Grocery&Staples.png",
+        name: 'Samsung ',
+        photoUrl: "assets/images/mobilePhone.png",
         discount: "-50%"),
     Product.withId(
         id: 5,
-        name: 'Fırın',
-        photoUrl: "assets/images/Grocery&Staples.png",
+        name: 'Iphone',
+        photoUrl: "assets/images/mobilePhone.png",
         discount: "-50%"),
     Product.withId(
         id: 6,
-        name: 'Grocery \n& Staples',
-        photoUrl: "assets/images/Grocery&Staples.png",
+        name: 'Xiaomi',
+        photoUrl: "assets/images/mobilePhone.png",
         discount: "-50%"),
     Product.withId(
-        id: 7,
-        name: 'Grocery \n& Staples',
-        photoUrl: "assets/images/Grocery&Staples.png",
+        id: 4,
+        name: 'Samsung ',
+        photoUrl: "assets/images/mobilePhone.png",
         discount: "-50%"),
     Product.withId(
-        id: 8,
-        name: 'Grocery \n& Staples',
-        photoUrl: "assets/images/Grocery&Staples.png",
+        id: 5,
+        name: 'Iphone',
+        photoUrl: "assets/images/mobilePhone.png",
+        discount: "-50%"),
+    Product.withId(
+        id: 6,
+        name: 'Xiaomi',
+        photoUrl: "assets/images/mobilePhone.png",
         discount: "-50%"),
   ];
 

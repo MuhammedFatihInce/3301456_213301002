@@ -26,7 +26,7 @@ Widget buildContent(String title, String photoUrl, String price, BuildContext co
             height: 16,
           ),
           Image.asset(
-            photoUrl,
+            photoUrl, height: 60, width: 60,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

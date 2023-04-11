@@ -27,7 +27,7 @@ Widget buildSalesItem({
             SizedBox(
               height: 22,
             ),
-            Center(child: Image.asset(photoUrl)),
+            Center(child: Image.asset(photoUrl, width: 60, height: 60,)),
             SizedBox(
               height: 22,
             ),
@@ -45,7 +45,7 @@ Widget buildSalesItem({
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "100 TL",
+                      "10.000 TL",
                       style: TextStyle(color: Colors.green),
                     ),
                   ],

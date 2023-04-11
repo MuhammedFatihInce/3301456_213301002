@@ -71,7 +71,7 @@ class _ProductDetailPage extends State<ProductDetailPage> {
                     //RENK SEÇENEKLERİ
                     Center(
                       child: Text(
-                        "Color",
+                        "Renk",
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -95,7 +95,7 @@ class _ProductDetailPage extends State<ProductDetailPage> {
 
                     Center(
                       child: Text(
-                        "Capacity",
+                        "Kapasite",
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -148,7 +148,7 @@ class _ProductDetailPage extends State<ProductDetailPage> {
                           borderRadius: BorderRadius.circular(4),
                           color: Color(0xFF1F53E4),
                         ),
-                        child: Text("Add to cart", textAlign: TextAlign.center, style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.w600),),
+                        child: Text("Sepete ekle", textAlign: TextAlign.center, style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.w600),),
                       ),
                     ),
                     SizedBox(height: 100,),
