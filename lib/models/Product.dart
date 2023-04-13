@@ -12,4 +12,5 @@ class Product {
         required this.name,
         required this.photoUrl,
         required this.discount});
+
 }

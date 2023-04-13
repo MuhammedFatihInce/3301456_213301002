@@ -4,20 +4,7 @@ import 'package:deneme_flutter/components/header.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatelessWidget {
-  final List<String> categories = [
-    "Bilgisayar",
-    "Telefon",
-    "Ev Eşyaları",
-    "Oyuncaklar",
-    "Bilgisayar",
-    "Telefon",
-    "Ev Eşyaları",
-    "Oyuncaklar",
-    "Bilgisayar",
-    "Telefon",
-    "Ev Eşyaları",
-    "Oyuncaklar",
-  ];
+  List<String> categories = ["Bilgisayar", "Telefon", "Ev Eşyaları"];
 
   @override
   Widget build(BuildContext context) {

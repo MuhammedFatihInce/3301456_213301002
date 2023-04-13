@@ -7,58 +7,58 @@ class CategoryPage extends StatelessWidget {
   String categoryTitle;
   CategoryPage(this.categoryTitle);
 
-   List<Map> products = [
-     {
-       "isim": "Iphone 11 Pro",
-       "fotograf": "assets/images/mobilePhone.png",
-       "fiyat": "999"
-     },
-     {
-       "isim": "Iphone 11 Pro",
-       "fotograf": "assets/images/mobilePhone.png",
-       "fiyat": "999"
-     },
-     {
-       "isim": "Mackbook",
-       "fotograf": "assets/images/mobilePhone.png",
-       "fiyat": "999"
-     },
-     {
-       "isim": "Başka bişey",
-       "fotograf": "assets/images/mobilePhone.png",
-       "fiyat": "999"
-     },
-     {
-       "isim": "Iphone 11 Pro",
-       "fotograf": "assets/images/mobilePhone.png",
-       "fiyat": "999"
-     },
-     {
-       "isim": " laptop 8",
-       "fotograf": "assets/images/mobilePhone.png",
-       "fiyat": "999"
-     },
-     {
-       "isim": "Iphone 11 Pro",
-       "fotograf": "assets/images/mobilePhone.png",
-       "fiyat": "999"
-     },
-     {
-       "isim": "laptop 8",
-       "fotograf":"assets/images/mobilePhone.png",
-       "fiyat": "999"
-     },
-     {
-       "isim": "Mackbook",
-       "fotograf": "assets/images/mobilePhone.png",
-       "fiyat": "999"
-     },
-     {
-       "isim": " laptop 8",
-       "fotograf": "assets/images/mobilePhone.png",
-       "fiyat": "999"
-     },
-   ];
+  List<Map> products = [
+    {
+      "isim": "Iphone 11 Pro",
+      "fotograf": "assets/images/mobilePhone.png",
+      "fiyat": "999"
+    },
+    {
+      "isim": "Iphone 11 Pro",
+      "fotograf": "assets/images/mobilePhone.png",
+      "fiyat": "999"
+    },
+    {
+      "isim": "Mackbook",
+      "fotograf": "assets/images/mobilePhone.png",
+      "fiyat": "999"
+    },
+    {
+      "isim": "Başka bişey",
+      "fotograf": "assets/images/mobilePhone.png",
+      "fiyat": "999"
+    },
+    {
+      "isim": "Iphone 11 Pro",
+      "fotograf": "assets/images/mobilePhone.png",
+      "fiyat": "999"
+    },
+    {
+      "isim": " laptop 8",
+      "fotograf": "assets/images/mobilePhone.png",
+      "fiyat": "999"
+    },
+    {
+      "isim": "Iphone 11 Pro",
+      "fotograf": "assets/images/mobilePhone.png",
+      "fiyat": "999"
+    },
+    {
+      "isim": "laptop 8",
+      "fotograf":"assets/images/mobilePhone.png",
+      "fiyat": "999"
+    },
+    {
+      "isim": "Mackbook",
+      "fotograf": "assets/images/mobilePhone.png",
+      "fiyat": "999"
+    },
+    {
+      "isim": " laptop 8",
+      "fotograf": "assets/images/mobilePhone.png",
+      "fiyat": "999"
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
