@@ -1,11 +1,12 @@
 import 'package:deneme_flutter/pages/category.dart';
+import 'package:deneme_flutter/models/category.dart';
 import 'package:flutter/material.dart';
 
-Widget buildCategory(String title, BuildContext context) {
+Widget buildCategory(Category category, BuildContext context) {
   return GestureDetector(
     onTap: () {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return CategoryPage(title);
+        return CategoryPage(category);
       }));
     },
     child: Container(
@@ -23,7 +24,7 @@ Widget buildCategory(String title, BuildContext context) {
         ],
       ),
       child: Text(
-        title,
+        category.name,
         style: TextStyle(
             fontSize: 18, fontWeight: FontWeight.w600, color: Color(0xFF0A1034)),
       ),

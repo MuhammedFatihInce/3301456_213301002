@@ -3,17 +3,17 @@ import 'package:deneme_flutter/components/label.dart';
 import 'package:deneme_flutter/pages/productDetail.dart';
 import 'package:flutter/material.dart';
 
+import '../models/Product.dart';
+
 Widget buildSalesItem({
-  required String text,
-  required String photoUrl,
-  required String discount,
+  required Product product,
   required double screenWidth,
   required BuildContext context,
 }) {
   return GestureDetector(
     onTap: () {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return ProductDetailPage(text, photoUrl);
+        return ProductDetailPage(product);
       }));
     },
     child: Card(
@@ -23,16 +23,16 @@ Widget buildSalesItem({
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            label(discount),
+            label("new"),
             SizedBox(
               height: 22,
             ),
-            Center(child: Image.asset(photoUrl, width: 60, height: 60,)),
+            Center(child: Image.asset(product.photoUrl, width: 60, height: 60,)),
             SizedBox(
               height: 22,
             ),
             Center(
-                child: Text(text,
+                child: Text(product.name,
                     style: TextStyle(fontSize: 18, color: Color(0XFF0A1034)))),
             SizedBox(
               height: 15,
@@ -45,7 +45,7 @@ Widget buildSalesItem({
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "10.000 TL",
+                      "${product.unitPrice} TL",
                       style: TextStyle(color: Colors.green),
                     ),
                   ],

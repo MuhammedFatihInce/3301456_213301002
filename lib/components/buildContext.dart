@@ -1,11 +1,13 @@
 import 'package:deneme_flutter/pages/productDetail.dart';
 import 'package:flutter/material.dart';
 
-Widget buildContent(String title, String photoUrl, String price, BuildContext context) {
+import '../models/Product.dart';
+
+Widget buildContent(Product product, BuildContext context) {
   return GestureDetector(
     onTap: () {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return ProductDetailPage(title, photoUrl);
+        return ProductDetailPage(product);
       }));
     },
     child: Container(
@@ -26,7 +28,7 @@ Widget buildContent(String title, String photoUrl, String price, BuildContext co
             height: 16,
           ),
           Image.asset(
-            photoUrl, height: 60, width: 60,
+            product.photoUrl, height: 60, width: 60,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,14 +37,14 @@ Widget buildContent(String title, String photoUrl, String price, BuildContext co
                 height: 42,
               ),
               Text(
-                title,
+                product.name,
                 style: TextStyle(
                     color: Color(0xFF0A1034),
                     fontSize: 16,
                     fontWeight: FontWeight.w500),
               ),
               Text(
-                "USD $price",
+                " ${product.unitPrice} TL",
                 style: TextStyle(
                     color: Color(0xFF0001FC),
                     fontSize: 12,

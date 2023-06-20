@@ -1,20 +1,39 @@
+
 import 'package:deneme_flutter/components/bottomNavigation.dart';
 import 'package:deneme_flutter/components/capacityOption.dart';
 import 'package:deneme_flutter/components/colorOption.dart';
 import 'package:deneme_flutter/components/header.dart';
+import 'package:deneme_flutter/pages/product_update.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../blocs/wishList_bloc.dart';
+import '../data/dbHelper.dart';
+import '../models/Product.dart';
+import '../models/cart.dart';
+import '../models/wishList.dart';
+import '../providers/cart_provider.dart';
+import 'home.dart';
 
 class ProductDetailPage extends StatefulWidget {
-  String productTitle;
-  String photoUrl;
+ Product product;
 
-  ProductDetailPage(this.productTitle, this.photoUrl);
+  ProductDetailPage(this.product);
 
   @override
-  _ProductDetailPage createState() => _ProductDetailPage();
+  _ProductDetailPage createState() {
+    return _ProductDetailPage(product);
+  }
+
 }
 
+enum Options{delete,update}
+var dbHelper = DbHelper();
+
 class _ProductDetailPage extends State<ProductDetailPage> {
+  Product product;
+  _ProductDetailPage(this.product);
+
    Color selectedColor = Color(0);
    int selectedCapacity = 64;
 
@@ -29,9 +48,59 @@ class _ProductDetailPage extends State<ProductDetailPage> {
 
 
 
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<CartProvider>(context);
+    void addProduct() {
+      wishListBloc.addToWishList(WishList(product,1));
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+    }
+
+    void saveData(Product product) {
+      dbHelper
+          .cartInsert(
+        Cart(
+          productId: product.id.toString(),
+          productName: product.name,
+          initialPrice: int.tryParse(product.unitPrice),
+          productPrice: int.tryParse(product.unitPrice),
+          image: product.photoUrl,
+          quantity: ValueNotifier(1),
+        ),
+      )
+          .then((value) {
+        cart.addTotalPrice(double.tryParse(product.unitPrice)!);
+        cart.addCounter();
+        print('Product Added to cart');
+      }).onError((error, stackTrace) {
+        print(error.toString());
+      });
+    }
+
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          PopupMenuButton<Options>(
+            onSelected: selectProcess,
+            itemBuilder: (BuildContext context)=><PopupMenuEntry<Options>>[
+              const PopupMenuItem<Options>(
+                value: Options.delete,
+                child: Text("Sil"),
+              ),
+              const PopupMenuItem<Options>(
+                value: Options.update,
+                child: Text("Güncelle"),
+              ),
+            ],
+          )
+        ],
+      ),
         body: SafeArea(
             child: Stack(children: [
       Padding(
@@ -39,7 +108,7 @@ class _ProductDetailPage extends State<ProductDetailPage> {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             //HEADER
-            header(widget.productTitle, context),
+            header(product.name),
             SizedBox(
               height: 32,
             ),
@@ -58,7 +127,7 @@ class _ProductDetailPage extends State<ProductDetailPage> {
                     //ÜRÜN FOTOĞRAFI
                     Center(
                       child: Image.asset(
-                       widget.photoUrl,
+                       product.photoUrl,
                         width: 150,
                         height: 200,
                       ),
@@ -113,15 +182,24 @@ class _ProductDetailPage extends State<ProductDetailPage> {
                           });
                         })).toList(),
                     ),
+                    SizedBox(height: 16,),
+                    // Ürün Açıklaması
+                    Center(
+                      child: Text(
+                        "Ürün Açıklaması",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFF0A1034)),
+                      ),
+                    ),
+                    Text(product.description, style: TextStyle(fontSize:18),),
+
                     //SEPETE EKLE
                     SizedBox(height: 32),
                     GestureDetector(
                       onTap: (){
-                        print("Ürün sepete eklendi.");
-                        print("Ürün İsmi: " + widget.productTitle);
-                        print("Ürün rengi: " + selectedColor.value.toString());
-                        print("Ürün kapasitesi: " + selectedCapacity.toString() + " gb");
-
+                        addProduct();
                       },
                       child: Container(
                         width: double.infinity,
@@ -136,10 +214,7 @@ class _ProductDetailPage extends State<ProductDetailPage> {
                     SizedBox(height: 25,),
                     GestureDetector(
                       onTap: (){
-                        print("Ürün sepete eklendi.");
-                        print("Ürün İsmi: " + widget.productTitle);
-                        print("Ürün rengi: " + selectedColor.value.toString());
-                        print("Ürün kapasitesi: " + selectedCapacity.toString() + " gb");
+                        saveData(product);
                       },
                       child: Container(
                         width: double.infinity,
@@ -158,11 +233,32 @@ class _ProductDetailPage extends State<ProductDetailPage> {
               ),
             ),
           ])),
-           
-           bottomNavigationBar("search"),
+
+           bottomNavigationBar("search", context),
     ])));
+
+
+
+
   }
+
+
+
+   void selectProcess(Options options) async{
+     switch(options){
+       case Options.delete:
+         await dbHelper.delete(product.id);
+         Navigator.push(this.context, MaterialPageRoute(builder: (context)=>HomePage()));
+         break;
+       case Options.update:
+         await Navigator.push(this.context, MaterialPageRoute(builder: (context)=>ProductUpdate(product)));
+         Navigator.pop(context,true);
+         break;
+       default:
+     }
+   }
 }
+
 
 
 

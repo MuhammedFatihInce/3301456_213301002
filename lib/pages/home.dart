@@ -3,13 +3,19 @@ import 'package:deneme_flutter/components/buildHeader.dart';
 import 'package:deneme_flutter/components/buildNavigation.dart';
 import 'package:deneme_flutter/components/buildSalesItem.dart';
 import 'package:deneme_flutter/models/Product.dart';
+import 'package:deneme_flutter/pages/category_list.dart';
+import 'package:deneme_flutter/pages/product_add.dart';
+import 'package:deneme_flutter/pages/product_list.dart';
 
 import 'package:flutter/material.dart';
 
+import '../data/dbHelper.dart';
+import 'wishList_screen.dart';
 import 'categories.dart';
 import '../components/bottomNavigation.dart';
 
 class HomePage extends StatefulWidget {
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -17,57 +23,25 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Widget> campaigns = [buildBanner(), buildBanner(), buildBanner()];
   int newIndex = 0;
-  List<Product> product = [
-    Product.withId(
-        id: 1,
-        name: 'Samsung',
-        photoUrl: "assets/images/mobilePhone.png",
-        discount: "-50%"),
-    Product.withId(
-        id: 2,
-        name: 'Iphone',
-        photoUrl: "assets/images/mobilePhone.png",
-        discount: "-50%"),
-    Product.withId(
-        id: 3,
-        name: 'Xiaomi ',
-        photoUrl: "assets/images/mobilePhone.png",
-        discount: "-50%"),
-    Product.withId(
-        id: 4,
-        name: 'Samsung ',
-        photoUrl: "assets/images/mobilePhone.png",
-        discount: "-50%"),
-    Product.withId(
-        id: 5,
-        name: 'Iphone',
-        photoUrl: "assets/images/mobilePhone.png",
-        discount: "-50%"),
-    Product.withId(
-        id: 6,
-        name: 'Xiaomi',
-        photoUrl: "assets/images/mobilePhone.png",
-        discount: "-50%"),
-    Product.withId(
-        id: 4,
-        name: 'Samsung ',
-        photoUrl: "assets/images/mobilePhone.png",
-        discount: "-50%"),
-    Product.withId(
-        id: 5,
-        name: 'Iphone',
-        photoUrl: "assets/images/mobilePhone.png",
-        discount: "-50%"),
-    Product.withId(
-        id: 6,
-        name: 'Xiaomi',
-        photoUrl: "assets/images/mobilePhone.png",
-        discount: "-50%"),
-  ];
+
+
+
+  var dbHelper = DbHelper();
+  late List<Product> products;
+  int productCount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    getProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
+    double screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
 
     return Scaffold(
       body: SafeArea(
@@ -144,14 +118,19 @@ class _HomePageState extends State<HomePage> {
                               widget: CategoriesPage(),
                               context: context),
                           buildNavigation(
-                              text: "En çok satılanlar",
-                              icon: Icons.star,
-                              widget: Container(),
+                              text: "Ürün Listesi",
+                              icon: Icons.list_alt_outlined,
+                              widget: ProductList(),
+                              context: context),
+                          buildNavigation(
+                              text: "Kategori Listesi",
+                              icon: Icons.system_update_alt_rounded,
+                              widget: CategoryList(),
                               context: context),
                           buildNavigation(
                               text: "İstek Listesi",
                               icon: Icons.bookmark,
-                              widget: Container(),
+                              widget: WishListScreen(),
                               context: context),
                         ],
                       ),
@@ -174,17 +153,17 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 270,
                       child: ListView.separated(
-                          separatorBuilder: (context, index) => const SizedBox(
+                          separatorBuilder: (context, index) =>
+                          const SizedBox(
                             width: 20,
                           ),
-                          itemCount: product.length,
-                          padding: EdgeInsets.only(left: 10, top: 20, right: 20, bottom: 10),
+                          itemCount: productCount,
+                          padding: EdgeInsets.only(
+                              left: 10, top: 20, right: 20, bottom: 10),
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             return buildSalesItem(
-                              text: "${product[index].name}",
-                              photoUrl: "${product[index].photoUrl}",
-                              discount: "${product[index].discount}",
+                              product: products[index],
                               context: context,
                               screenWidth: screenWidth,
                             );
@@ -194,17 +173,17 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 270,
                       child: ListView.separated(
-                          separatorBuilder: (context, index) => const SizedBox(
-                                width: 20,
-                              ),
-                          itemCount: product.length,
-                          padding: EdgeInsets.only(left: 10, top: 20, right: 20, bottom: 10),
+                          separatorBuilder: (context, index) =>
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          itemCount: productCount,
+                          padding: EdgeInsets.only(
+                              left: 10, top: 20, right: 20, bottom: 10),
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             return buildSalesItem(
-                              text: "${product[index].name}",
-                              photoUrl: "${product[index].photoUrl}",
-                              discount: "${product[index].discount}",
+                              product: products[index],
                               context: context,
                               screenWidth: screenWidth,
                             );
@@ -220,10 +199,23 @@ class _HomePageState extends State<HomePage> {
             ),
 
             //BOTTOM NAVIGATION BAR
-            bottomNavigationBar("home"),
+            bottomNavigationBar("home", context),
           ],
         ),
       ),
     );
   }
+
+  void getProducts() async {
+    var productsFuture = dbHelper.getProducts();
+    productsFuture.then((data) {
+      setState(() {
+        products = data;
+        productCount = data.length;
+      });
+    });
+  }
+
+
+
 }
