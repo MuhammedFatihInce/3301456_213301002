@@ -1,3 +1,4 @@
+import 'package:deneme_flutter/data/dbHelper.dart';
 import 'package:deneme_flutter/firebase_options.dart';
 import 'package:deneme_flutter/pages/chart_page.dart';
 import 'package:deneme_flutter/pages/home.dart';
@@ -11,6 +12,8 @@ import 'package:provider/provider.dart';
 
 
 void main() async{
+  await WidgetsFlutterBinding.ensureInitialized();
+  await DbHelper().initializeDb();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
