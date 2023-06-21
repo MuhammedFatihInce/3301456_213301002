@@ -7,14 +7,19 @@ import 'package:deneme_flutter/pages/register_screen.dart';
 import 'package:deneme_flutter/pages/welcome_screen.dart';
 import 'package:deneme_flutter/providers/cart_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 
 void main() async{
-  await WidgetsFlutterBinding.ensureInitialized();
-  await DbHelper().initializeDb();
   WidgetsFlutterBinding.ensureInitialized();
+  if ((defaultTargetPlatform == TargetPlatform.windows || defaultTargetPlatform == TargetPlatform.linux) && !kIsWeb) {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  }
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

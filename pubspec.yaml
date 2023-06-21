@@ -44,7 +44,7 @@ dependencies:
   firebase_auth:
   modal_progress_hud_nsn: ^0.4.0
   charts_flutter:
-
+  sqflite_common_ffi:
 
 
 dev_dependencies:
